@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Moblin IRL Streamer</string>
+    <string name="notification_channel_name">IRL Streaming Service</string>
+    <string name="notification_channel_desc">Mantiene activa la transmisión y grabación en segundo plano</string>
+    <string name="action_stop_stream">Detener Stream</string>
+    <string name="action_stop_record">Detener Grabación</string>
+</resources>

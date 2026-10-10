@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Conectividad y Transporte SRT sobre redes móviles 4G/5G, Wi-Fi y túneles (Tailscale/ZeroTier) -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+
+    <!-- Captura de Hardware (Video Camera2 API & Audio PCM) -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- Control de energía y ejecución continua en segundo plano para IRL -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CAMERA" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Almacenamiento local de grabaciones MP4 de alta fidelidad -->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+
+    <!-- Requerimientos de hardware de cámara -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.any"
+        android:required="true" />
+
+    <application
+        android:name=".MoblinApp"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:roundIcon="@android:drawable/ic_menu_camera"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MoblinIRLStreamer">
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|smallestScreenSize"
+            android:exported="true"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.MoblinIRLStreamer"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Servicio en primer plano para transmisión y grabación ininterrumpida -->
+        <service
+            android:name=".service.StreamingForegroundService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="camera|microphone|connectedDevice" />
+
+    </application>
+
+</manifest>
